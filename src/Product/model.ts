@@ -1,8 +1,31 @@
 import { prisma } from "../../prisma/client";
+import { DEFAULT_SKIP, DEFAULT_TAKE } from "./constants";
 import { CreateProductInput, ProductListParam } from "./types";
 
 
 export class ProductModel {
+    public static searchProduct = async (textSearch: string, skip: number = DEFAULT_SKIP, take: number = DEFAULT_TAKE) => {
+
+        const resultList = await prisma.product.findMany({
+            skip: skip,
+            take: take,
+            where: {
+                name: { contains: textSearch, mode: 'insensitive' }
+
+            },
+            orderBy: {
+                id: 'asc'
+            }
+        })
+
+        const searchCount = await prisma.product.count({
+            where: {
+                name: { contains: textSearch, mode: 'insensitive' }
+
+            },
+        })
+        return { resultList, searchCount }
+    }
     public static findProductDetail = async (productId: number) => {
         return await prisma.product.findUnique({
             where: {

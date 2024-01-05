@@ -2,6 +2,12 @@ This is a Test Development of Express.js API project using PostgreSQL as databas
 
 ## Getting Started
 
+### Requirement
+
+```
+node v21 (use nvm if you need to switch)
+```
+
 ### 1. Install PostgreSQL Database
 
 Please download and install postgresql according to your OS [Here](https://www.postgresql.org/download/).

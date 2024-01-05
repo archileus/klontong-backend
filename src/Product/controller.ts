@@ -64,4 +64,23 @@ export class ProductController {
         }
         res.json(response)
     }
+
+    public static search: RequestHandler = async (req, res, next) => {
+        const textSearch = req.query.text as string;
+        const take = parseInt(req.query.take as string) || DEFAULT_TAKE;
+        const skip = parseInt(req.query.skip as string) || DEFAULT_SKIP;
+
+        const resultData = await ProductModel.searchProduct(textSearch, skip, take);
+
+        const response: ApiProductListResponse = {
+            code: ErrorType.SUCCESS.code,
+            message: ErrorType.SUCCESS.message,
+            take,
+            skip,
+            total: resultData.searchCount,
+            data: resultData.resultList
+        }
+        res.json(response)
+
+    }
 }
