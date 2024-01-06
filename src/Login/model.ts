@@ -13,10 +13,10 @@ export class LoginModel {
                 email: email
             },
         })
-        if (!currentUser) throw new CustomError(ErrorType.USER_NOT_FOUND.code, ErrorType.USER_NOT_FOUND.message);
+        if (!currentUser) throw new CustomError(400, ErrorType.USER_NOT_FOUND.code, ErrorType.USER_NOT_FOUND.message);
         const { password: hashedPassword, ...restCurrentUser } = currentUser
         const isPasswordMatch = bcrypt.compareSync(password, hashedPassword);
-        if (!isPasswordMatch) throw new CustomError(ErrorType.INCORRECT_PASSWORD.code, ErrorType.INCORRECT_PASSWORD.message);
+        if (!isPasswordMatch) throw new CustomError(400, ErrorType.INCORRECT_PASSWORD.code, ErrorType.INCORRECT_PASSWORD.message);
 
         return restCurrentUser;
 

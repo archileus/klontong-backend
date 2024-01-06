@@ -16,7 +16,7 @@ export class LoginController {
         const bodyParsed = req.body;
         const loginData = await LoginModel.login(bodyParsed);
 
-        if (!loginData) throw new CustomError(ErrorType.INTERNAL_SERVER_ERROR.code, ErrorType.INTERNAL_SERVER_ERROR.message)
+        if (!loginData) throw new CustomError(500, ErrorType.INTERNAL_SERVER_ERROR.code, ErrorType.INTERNAL_SERVER_ERROR.message)
         req.session.user = loginData;
 
         const response: ApiResponse = {

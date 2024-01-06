@@ -12,12 +12,12 @@ export class ProductController {
 
     public static getProductDetail: RequestHandler = async (req, res, next) => {
         const productId = req.params.id;
-        if (!productId) throw new CustomError(ErrorType.PRODUCT_ID_NOT_FOUND.code, ErrorType.PRODUCT_ID_NOT_FOUND.message)
+        if (!productId) throw new CustomError(400, ErrorType.PRODUCT_ID_NOT_FOUND.code, ErrorType.PRODUCT_ID_NOT_FOUND.message)
         const isNumberId = parseInt(productId);
-        if (isNaN(isNumberId)) throw new CustomError(ErrorType.PRODUCT_ID_NOT_FOUND.code, ErrorType.PRODUCT_ID_NOT_FOUND.message)
+        if (isNaN(isNumberId)) throw new CustomError(400, ErrorType.PRODUCT_ID_NOT_FOUND.code, ErrorType.PRODUCT_ID_NOT_FOUND.message)
 
         const productDetail = await ProductModel.findProductDetail(isNumberId);
-        if (!productDetail) throw new CustomError(ErrorType.PRODUCT_ID_NOT_FOUND.code, ErrorType.PRODUCT_ID_NOT_FOUND.message)
+        if (!productDetail) throw new CustomError(400, ErrorType.PRODUCT_ID_NOT_FOUND.code, ErrorType.PRODUCT_ID_NOT_FOUND.message)
 
         const response: ApiResponse = {
             code: ErrorType.SUCCESS.code,
